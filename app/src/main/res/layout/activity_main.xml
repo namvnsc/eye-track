@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.example.eye_track.AutoFitTextureView
+        android:id="@+id/texture"
+        android:layout_width="match_parent"
+        android:layout_height="512dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_weight="1" />
+
+    <jp.co.cyberagent.android.gpuimage.GPUImageView
+        android:id="@+id/gpuimageview_face"
+        android:layout_width="match_parent"
+        android:layout_height="512dp"
+        android:layout_marginTop="0dp" />
+
+    <jp.co.cyberagent.android.gpuimage.GPUImageView
+        android:id="@+id/gpuimageview"
+        android:layout_width="match_parent"
+        android:layout_height="224dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="512dp"
+        android:scaleType="fitStart"
+        app:gpuimage_show_loading="false"
+        app:gpuimage_surface_type="texture_view" />
+
+</RelativeLayout>
