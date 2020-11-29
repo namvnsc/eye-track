@@ -316,12 +316,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         long t1 = SystemClock.uptimeMillis();
-        bitmap = textureView.getBitmap();
         int hhh = textureView.getHeight(), www = textureView.getWidth();
         int l = Math.min(textureView.getHeight(), textureView.getWidth());
-        bitmap = Bitmap.createBitmap(bitmap, www/2-l/2, hhh/2-l/2, l, l);
-        fgd = Bitmap.createScaledBitmap(bitmap, sz_image, sz_image, true);
-        bitmap = Bitmap.createScaledBitmap(bitmap, piu, piu, true);
+//        int l = sz_image;
+        fgd = Bitmap.createBitmap(textureView.getBitmap(),www/2-l/2, hhh/2-l/2, l, l);
+        fgd = Bitmap.createScaledBitmap(fgd, sz_image, sz_image, true);
+//        System.out.println(fgd.getWidth()+"_"+fgd.getHeight());
+//        bitmap = fgd;//Bitmap.createBitmap(bitmap, www/2-l/2, hhh/2-l/2, l, l);
+        bitmap = Bitmap.createScaledBitmap(fgd, piu, piu, true);
         predict();
         long t2 = SystemClock.uptimeMillis();
         System.out.println("total "+(t2-t1));
@@ -354,9 +356,9 @@ public class MainActivity extends AppCompatActivity {
     IValue[] outputTuple;
     float x1, y1, x2, y2;
     float[] l, lm;
-    int xx, yy, _w, _h, hh = piu, ww = piu;
     private static ArrayList<ArrayList<Float>> bb = new ArrayList<>();
-    static int piu = 320, sz_image = 320;
+    static int piu = 128, sz_image = 320;
+    int xx, yy, _w, _h, hh = sz_image, ww = sz_image;
 
     public void predict(){
         inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
@@ -396,8 +398,8 @@ public class MainActivity extends AppCompatActivity {
         _w = (int)Math.min(ww-x1, (int)(x2));
         _h = (int)Math.min(hh-y2, (int)(y2));
 //        long xx1 = SystemClock.uptimeMillis();
-        bitmap = Bitmap.createBitmap(fgd, xx, yy, Math.max(1, _w), Math.max(1, _h/2));
-//        bitmap = Bitmap.createBitmap(bitmap, xx, yy, Math.min(Math.max(_w, 1), ww-xx), Math.min(Math.max((_h/2), 1), hh-yy));
+//        bitmap = Bitmap.createBitmap(fgd, xx, yy, Math.max(1, _w), Math.max(1, _h/2));
+        bitmap = Bitmap.createBitmap(fgd, xx, yy, Math.min(Math.max(_w, 1), ww-xx), Math.min(Math.max((_h/2), 1), hh-yy));
         bitmap = Bitmap.createScaledBitmap(bitmap, 112, 56,true);
 //        return;
         ip = TensorImageUtils.bitmapToFloat32Tensor(bitmap,
